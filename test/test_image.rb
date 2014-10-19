@@ -116,4 +116,12 @@ class TestImage < Minitest::Test
       i.show
     end
   end
+
+  def test_show_with_one_cell
+    i = Image.new
+    i.create(1, 1)
+    assert_output("O\n") do
+      i.show
+    end
+  end
 end
