@@ -46,6 +46,14 @@ class Image
   end
 
   def show
+    for row in 0..@n-1
+      for col in 0..@m-1
+        print @canvas[[row,col]]
+        $stdout.flush
+      end
+      print "\n"
+      $stdout.flush
+    end
   end
 
   def canvas=(canvas)

@@ -1,7 +1,8 @@
 require_relative "../image"
 require "test/unit"
+require "minitest/autorun"
 
-class TestImage < Test::Unit::TestCase
+class TestImage < Minitest::Test
   def test_create_fill
     i = Image.new
     i.create(1, 1)
@@ -106,5 +107,13 @@ class TestImage < Test::Unit::TestCase
     i = Image.new
     i.create(3, 3)
     assert_equal("invalid coordinates", i.draw_horizontal_segment(2,1,2,"B"))
+  end
+
+  def test_show
+    i = Image.new
+    i.create(3, 3)
+    assert_output("OOO\nOOO\nOOO\n") do
+      i.show
+    end
   end
 end
