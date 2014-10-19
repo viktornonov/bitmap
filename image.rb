@@ -56,6 +56,22 @@ class Image
     end
   end
 
+  def fill_region(row, col, color)
+    return unless row.between?(1,@n) && col.between?(1,@m)
+    x,y = row-1,col-1
+    old_color = @canvas[[x, y]]
+    recursive_fill(x,y,color,old_color)
+  end
+
+  def recursive_fill(x, y, color, old_color)
+    return if @canvas[[x, y]] != old_color 
+    @canvas[[x,y]] = color
+    recursive_fill(x+1, y, color, old_color)
+    recursive_fill(x-1, y, color, old_color)
+    recursive_fill(x, y+1, color, old_color)
+    recursive_fill(x, y-1, color, old_color)
+  end
+
   def canvas=(canvas)
     @canvas = canvas
   end

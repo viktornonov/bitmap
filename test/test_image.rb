@@ -124,4 +124,31 @@ class TestImage < Minitest::Test
       i.show
     end
   end
+
+  def test_fill_region_when_canvas_empty
+    i = Image.new
+    i.create(2, 2)
+    i.fill_region(1, 1, "C")
+    for x in 0..1
+      for y in 0..1
+        assert_equal("C", i.canvas[[x,y]])
+      end
+    end
+  end
+
+  def test_fill_region_when_center_is_different
+    i = Image.new
+    i.create(3, 3)
+    i.canvas[[1,1]] = "B"
+    i.fill_region(1, 2, "C")
+    for x in 0..2
+      for y in 0..2
+        if x == 1 && y == 1
+          assert_equal("B", i.canvas[[x,y]])
+        else
+          assert_equal("C", i.canvas[[x,y]])
+        end
+      end
+    end
+  end
 end
