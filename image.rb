@@ -35,7 +35,14 @@ class Image
     end
   end
 
-  def draw_horizontal_segment
+  def draw_horizontal_segment(col_start, col_end, row, color)
+    return "invalid coordinates" unless col_start.between?(1, @m) &&
+                                        col_end.between?(1, @m) &&
+                                        col_end > col_start &&
+                                        row.between?(1, @n)
+    for i in col_start..col_end
+      @canvas[[row-1, i-1]] = color
+    end
   end
 
   def show

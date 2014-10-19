@@ -80,4 +80,31 @@ class TestImage < Test::Unit::TestCase
     i.create(3, 3)
     assert_equal("invalid coordinates", i.draw_vertical_segment(2,2,1,"B"))
   end
+
+  def test_draw_horizontal_segment
+    i = Image.new
+    i.create(3, 3)
+    i.draw_horizontal_segment(1,3,1,"B")
+    assert_equal("B", i.canvas[[0,0]])
+    assert_equal("B", i.canvas[[0,1]])
+    assert_equal("B", i.canvas[[0,2]])
+  end
+
+  def test_draw_horizontal_segment_with_coords_bigger_than_size
+    i = Image.new
+    i.create(3, 3)
+    assert_equal("invalid coordinates", i.draw_horizontal_segment(1,4,3,"B"))
+  end
+
+  def test_draw_horizontal_segment_with_invalid_row
+    i = Image.new
+    i.create(3, 3)
+    assert_equal("invalid coordinates", i.draw_horizontal_segment(1,2,4,"B"))
+  end
+
+  def test_draw_horizontal_segment_with_end_bigger_than_start
+    i = Image.new
+    i.create(3, 3)
+    assert_equal("invalid coordinates", i.draw_horizontal_segment(2,1,2,"B"))
+  end
 end
