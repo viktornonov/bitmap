@@ -53,4 +53,31 @@ class TestImage < Test::Unit::TestCase
     i.create(3,3)
     assert_equal("invalid coordinates", i.color_pixel(0,0, "C"))
   end
+
+  def test_draw_vertical_segment
+    i = Image.new
+    i.create(3, 3)
+    i.draw_vertical_segment(1,1,3,"B")
+    assert_equal("B", i.canvas[[0,0]])
+    assert_equal("B", i.canvas[[1,0]])
+    assert_equal("B", i.canvas[[2,0]])
+  end
+
+  def test_draw_vertical_segment_with_coords_bigger_than_size
+    i = Image.new
+    i.create(3, 3)
+    assert_equal("invalid coordinates", i.draw_vertical_segment(1,4,3,"B"))
+  end
+
+  def test_draw_vertical_segment_with_invalid_column
+    i = Image.new
+    i.create(3, 3)
+    assert_equal("invalid coordinates", i.draw_vertical_segment(4,1,3,"B"))
+  end
+
+  def test_draw_vertical_segment_with_end_bigger_than_start
+    i = Image.new
+    i.create(3, 3)
+    assert_equal("invalid coordinates", i.draw_vertical_segment(2,2,1,"B"))
+  end
 end

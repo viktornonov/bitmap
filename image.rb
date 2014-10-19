@@ -21,11 +21,18 @@ class Image
   end
 
   def color_pixel(x, y, color)
-    return "invalid coordinates" unless x.between?(1, @m+1) && y.between?(1, @n+1)
+    return "invalid coordinates" unless x.between?(1, @m) && y.between?(1, @n)
     @canvas[[x-1, y-1]] = color
   end
 
-  def draw_vertical_segment
+  def draw_vertical_segment(column, row_start, row_end, color)
+    return "invalid coordinates" unless row_start.between?(1, @n) &&
+                                        row_end.between?(1, @n) &&
+                                        row_end > row_start &&
+                                        column.between?(1, @m)
+    for i in row_start..row_end
+      @canvas[[i-1, column-1]] = color
+    end
   end
 
   def draw_horizontal_segment
