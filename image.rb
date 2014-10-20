@@ -1,6 +1,7 @@
 class Image
   MAX_HEIGHT = 250
   ERROR_MSGS = { invalid_coords: { status: :failed, msg: "invalid coordinates" } }
+
   def initialize
     @canvas = Hash.new
     @m = 0
@@ -12,6 +13,7 @@ class Image
                                                                                 !height.between?(1,250)
     @m, @n = width, height
     self.clear
+    { status: :success }
   end
 
   def clear
@@ -20,11 +22,13 @@ class Image
         @canvas[[x, y]] = 'O'
       end
     end
+    { status: :success }
   end
 
   def color_pixel(x, y, color)
     return ERROR_MSGS[:invalid_coords] unless x.between?(1, @m) && y.between?(1, @n)
     @canvas[[x-1, y-1]] = color
+    { status: :success }
   end
 
   def draw_vertical_segment(column, row_start, row_end, color)
@@ -35,6 +39,7 @@ class Image
     for i in row_start..row_end
       @canvas[[i-1, column-1]] = color
     end
+    { status: :success }
   end
 
   def draw_horizontal_segment(col_start, col_end, row, color)
@@ -45,6 +50,7 @@ class Image
     for i in col_start..col_end
       @canvas[[row-1, i-1]] = color
     end
+    { status: :success }
   end
 
   def show
@@ -65,6 +71,7 @@ class Image
     x,y = row-1,col-1
     old_color = @canvas[[x, y]]
     recursive_fill(x,y,color,old_color)
+    { status: :success }
   end
 
   def canvas=(canvas)

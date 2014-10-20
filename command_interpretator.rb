@@ -21,7 +21,8 @@ class CommandInterpretator
   def read_lines
     while line = STDIN.gets
       break if line == "X\n"
-      interpret_line(line)
+      result = interpret_line(line)
+      puts result[:msg] if result[:status] == :failed
     end
   end
 
@@ -41,8 +42,7 @@ class CommandInterpretator
               parameters << cmd_param
             end
           end
-          @image.send(command[:action], *parameters)
-          return { status: :success }
+          return @image.send(command[:action], *parameters)
         else
           return {status: :failed, msg: "Command #{command[:name]} has #{command[:params].count} parameters"}
         end
