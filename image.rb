@@ -26,8 +26,8 @@ class Image
   end
 
   def color_pixel(x, y, color)
-    return ERROR_MSGS[:invalid_coords] unless x.between?(1, @m) && y.between?(1, @n)
-    @canvas[[x-1, y-1]] = color
+    return ERROR_MSGS[:invalid_coords] unless y.between?(1, @m) && x.between?(1, @n)
+    @canvas[[y-1, x-1]] = color
     { status: :success }
   end
 
